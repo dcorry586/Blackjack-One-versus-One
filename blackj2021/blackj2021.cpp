@@ -26,6 +26,21 @@ std::vector<int> Deck = { ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K,\
 std::vector<int> PlayerOneHand;
 std::vector<int> PlayerTwoHand;
 
+void Init() { // give all players 2 cards each
+    // give player one 2 cards 
+    int CardOneForPlayerOne = Deck.back();
+    PlayerOneHand.push_back(CardOneForPlayerOne);
+
+    int CardTwoForPlayerOne = Deck.back();
+    PlayerOneHand.push_back(CardTwoForPlayerOne);
+
+    int CardOneForPlayerTwo = Deck.back();
+    PlayerTwoHand.push_back(CardOneForPlayerTwo);
+
+    int CardTwoForPlayerTwo = Deck.back();
+    PlayerTwoHand.push_back(CardTwoForPlayerTwo);
+}
+
 void PullCardFromDeck() {
     // card  = last card of deck && popback vector too.
     // point to last element in vector and get index
@@ -36,15 +51,40 @@ void PullCardFromDeck() {
 
 void GiveCardToPlayer1(int card) {
     PlayerOneCard = card;
+    // push_back card to PlayerOneHand
+    PlayerOneHand.push_back(card);
 }
 
 void GiveCardToPlayer2(int card){
     PlayerTwoCard = card;
+    // push_back card to PlayerTwoHand
+    PlayerTwoHand.push_back(card);
 }
+
+void ViewPlayerOneHand(std::vector<int> PlayerOneHand) {
+    for (int i = 0; i < PlayerOneHand.size(); i++) {
+        std::cout << "Player One : "<< PlayerOneHand[i] << '\n';
+    }
+}
+
+void ViewPlayerTwoHand(std::vector<int> PlayerTwoHand) {
+    for (int i = 0; i < PlayerOneHand.size(); i++) {
+        std::cout << "Player Two : " << PlayerTwoHand[i] << '\n';
+    }
+}
+
 
 int main()
 {
+    // give both players 2 cards each
+    Init();
+    // view player one hand
+    ViewPlayerOneHand(PlayerOneHand);
 
+    // view player two hand
+    ViewPlayerTwoHand(PlayerTwoHand);
+
+    // Player 1
     while (PlayerOneDecision != PlayerOneStand) {
         cout << "init()...give all players 2 starting cards each." << '\n';
 
@@ -57,6 +97,8 @@ int main()
         {
             cout << 0 << '\n'; // represents no card given and dealer will now ask next player in line
             PlayerOneDecision = PlayerOneStand;
+            // allow player to view hand - print it !
+            ViewPlayerOneHand(PlayerOneHand);
         }
         else {
             // pull card from deck
@@ -68,7 +110,7 @@ int main()
    
     cout << "Now Player 2 turn..." << '\n';
 
-
+    // Player 2
     while (PlayerTwoDecision != PlayerTwoStand) {
         cout << "init()...give all players 2 starting cards each." << '\n';
 
@@ -81,6 +123,8 @@ int main()
         {
             cout << 0 << '\n'; // represents no card given and dealer will now ask next player in line
             PlayerTwoDecision = PlayerTwoStand;
+            // allow player to view hand - print it !
+            ViewPlayerTwoHand(PlayerTwoHand);
         }
         else {
             // pull card from deck
@@ -98,5 +142,6 @@ int main()
     return 0;
 }
 
-// But first : Create repo on GHub for this, commit to master branch and push this!!
 // NEXT : PLAYER VIEW HAND!!!!!!!
+// NEXT : DEALER TOTAL UP HANDS AND EVALUATE WINNER 
+// PLAYER NEEDS TO CONSTANTLY VIEW HAND - NOT JUST ON STAND!
